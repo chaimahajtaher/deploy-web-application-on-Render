@@ -6,14 +6,13 @@ Created on Mon Apr  3 22:58:37 2023
 """
 import numpy as np
 import pandas as pd
-import pickle
 import streamlit as st
 import tensorflow as tf
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow import keras
 
 # Load the saved model
-loaded_model = tf.keras.models.load_model("C:/Users/ahlem/Desktop/deploy DL model Web App/my_classifier.h5")
+loaded_model = tf.keras.models.load_model("C:/Users/ahlem/Desktop/Deploy streamlit App on Render/my_classifier.h5")
 
 # Define a function for making a prediction on new data
 
