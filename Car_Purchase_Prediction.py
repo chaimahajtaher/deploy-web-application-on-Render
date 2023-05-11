@@ -12,7 +12,7 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow import keras
 
 # Load the saved model
-loaded_model = tf.keras.models.load_model("C:/Users/ahlem/Desktop/Deploy streamlit App on render/my_classifier.h5")
+loaded_model = tf.keras.models.load_model("my_classifier.h5")
 
 # Define a function for making a prediction on new data
 
