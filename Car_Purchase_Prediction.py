@@ -6,15 +6,13 @@ Created on Mon Apr  3 22:58:37 2023
 """
 import numpy as np
 import pandas as pd
-import pickle
 import streamlit as st
 import tensorflow as tf
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow import keras
-from PIL import Image
 
 # Load the saved model
-loaded_model = tf.keras.models.load_model("C:/Users/ahlem/Desktop/deploy DL model Web App/my_classifier.h5")
+loaded_model = tf.keras.models.load_model("my_classifier.h5")
 
 # Define a function for making a prediction on new data
 
@@ -41,11 +39,9 @@ def make_prediction(new_data):
 def app():
     
     
-    
     html_temp="""
     <div style="background-color: lightblue; padding: 16px; ">
-    <h2 style="color: black; text-align: center;">CarSalesForecast: Predicting Automotive Sales</h2>
-    <div style="background-image: url("C:/Users/ahlem/Desktop/deploy DL model Web App/cars.jpeg"); padding: 16px; ">
+    <h2 style="color: black; text-align: center;">Prédiction d'achat de voitures</h2>
     </div>
     """
 
@@ -54,17 +50,14 @@ def app():
     st.write('')
     st.write('')
     # Ajouter un titre
-    #st.title('CarSalesForecast: Predicting Automotive Sales)
+    #st.title('Prédiction d\'achat de voiture')
 
 
     # Ajouter une description de la page
-    st.markdown('**Welcome to our Car Sales Prediction website!**')
-    st.markdown('**Please use the form below to enter information about the car you are considering to purchase, and our Deep Learning model will provide you with a recommendation on the deal\'s quality**')
-
-
+    st.markdown('Bienvenue sur notre site de prédiction d\'achat de voiture ! Utilisez le formulaire ci-dessous pour entrer les informations sur la voiture que vous envisagez d\'acheter, et notre modèle de Deep learning vous donnera une recommandation sur la qualité de l\'affaire.')
 
     # Ajouter des instructions pour remplir le formulaire
-    #st.markdown('Veuillez r:')
+    st.markdown('Veuillez remplir les informations suivantes sur la voiture que vous envisagez d\'acheter :')
 
     # Set the title
     #st.title('Car Purchase Prediction Web App')
@@ -75,41 +68,25 @@ def app():
     #Ajouter des icônes pour les champs d'entrée de données
     col1, col2, col3 = st.columns(3)
     with col1:
-       #chargement de l'image
-       image = Image.open('C:/Users/ahlem/Desktop/deploy DL model Web App/Rating.png')
-       resized_image = image.resize((60,60))
-       
-       #¶affiachge de l'image et de titre
-       st.image(resized_image, width=60)
+       #st.image('rating_icon.png')
        #rating = st.text_input('Note de la voiture (sur 5)')
-       rating = st.number_input('**Car Rating (out of 5)**', value=4.5, step=0.1)
+       rating = st.number_input('Note de la voiture (sur 5)', value=4.5, step=0.1)
 
     with col2:
-       
-       #chargement de l'image
-       image = Image.open('C:/Users/ahlem/Desktop/deploy DL model Web App/Reviews.jpeg')
-       resized_image = image.resize((60,60))
-       
-       #¶affiachge de l'image et de titre
-       st.image(resized_image, width=60)
+       #st.image('review_icon.png')
        #review_count = st.text_input('Nombre d\'avis sur la voiture')
-       review_count = st.number_input('**Number of reviews on the car**', value=10)
+       review_count = st.number_input('Nombre d\'avis sur la voiture', value=10)
 
 
     with col3:
        #st.image('price_icon.png')
-       #chargement de l'image
-       image = Image.open('C:/Users/ahlem/Desktop/deploy DL model Web App/Price.jpeg')
-       resized_image = image.resize((60,60))
-       #¶affiachge de l'image et de titre
-       st.image(resized_image, width=60)
        #price = st.text_input('Prix de la voiture')
-       price = st.number_input('**Car Price**', value=10000)
+       price = st.number_input('Prix de la voiture', value=10000)
 
        
      
     # Ajouter une liste déroulante pour l'année
-    year = st.selectbox('**Car Manufacturing Year**', range(2000, 2024))
+    year = st.selectbox('Année de fabrication de la voiture', range(2000, 2024))
 
 
     # Ajouter des suggestions automatiques pour la marque et le modèle
@@ -117,7 +94,7 @@ def app():
                   'Volkswagen', 'Dodge', 'Ford' ,'INFINITI', 'Honda' ,'GMC' ,'Kia' ,'Jeep',
                   'Jaguar' ,'Hyundai' ,'Mazda', 'Mercedes-Benz', 'Nissan', 'Porsche' ,'Toyota',
                   'Volvo' ,'FIAT' ,'Mitsubishi' ,'Ferrari' ,'RAM' ,'Subaru', 'Lexus']
-    brand = st.selectbox('**Car Brand**', brands)
+    brand = st.selectbox('Marque de la voiture', brands)
         
         
    # Créer un dictionnaire de modèles pour chaque marque
@@ -157,7 +134,7 @@ def app():
     models = brand_models[brand]
 
     # Afficher une liste déroulante pour sélectionner le modèle de la voiture
-    model = st.selectbox('**Car Model**', models)
+    model = st.selectbox('Modèle de la voiture', models)
    
 
     # Convert the user input to a list
@@ -172,11 +149,11 @@ def app():
             
             if prediction[0] == 0:
                 
-                result = "Fair Deal"
+                result = "Mauvaise affaire"
                 result_color = "red"
             else:
                 st.balloons()
-                result = "Good Deal"
+                result = "Bonne affaire"
                 result_color = "green"
                 
         except:
@@ -186,10 +163,9 @@ def app():
         #st.success(result)
         
         st.markdown("---")
-        st.write('## The prediction Result:')
-        st.write(f"**According to the provided data, the prediction of the car is as follows {result}**", f"**for the given car with the Brand and the Moddel specified : {brand} {model}.**", 
+        st.write('## Résultat de la prédiction:')
+        st.write(f"Selon les données fournies, il y a {result}", f"pour la voiture de {brand} {model}.", 
              unsafe_allow_html=True, )
-        st.write(f"**This prediction is generated based on the input features and the trained model used for car sales prediction**", unsafe_allow_html=True, )
         st.markdown(f"<p style='color:{result_color}; font-size: 32px;'>{result}</p>", unsafe_allow_html=True)
 
 
