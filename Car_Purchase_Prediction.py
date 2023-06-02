@@ -4,7 +4,6 @@ Created on Mon Apr  3 22:58:37 2023
 
 @author: ahlem
 """
-
 import numpy as np
 import pandas as pd
 import pickle
@@ -46,7 +45,7 @@ def app():
     html_temp="""
     <div style="background-color: lightblue; padding: 16px; ">
     <h2 style="color: black; text-align: center;">CarSalesForecast: Predicting Automotive Sales</h2>
-    <div style="background-image: url("cars.jpeg"); padding: 16px; ">
+    <div style="background-image: url("C:/Users/ahlem/Desktop/deploy DL model Web App/cars.jpeg"); padding: 16px; ">
     </div>
     """
 

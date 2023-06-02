@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 19 15:26:23 2023
+
+@author: ahlem
+"""
+body{
+    background-image: url("C:/Users/ahlem/Desktop/deploy DL model Web App/cars.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
